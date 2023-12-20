@@ -1,4 +1,8 @@
-import { QuartzTransformerPlugin } from "../types"
+import path from "path"
+
+import isAbsoluteUrl from "is-absolute-url"
+import { visit } from "unist-util-visit"
+
 import {
   FullSlug,
   RelativeURL,
@@ -9,9 +13,7 @@ import {
   splitAnchor,
   transformLink,
 } from "../../util/path"
-import path from "path"
-import { visit } from "unist-util-visit"
-import isAbsoluteUrl from "is-absolute-url"
+import { QuartzTransformerPlugin } from "../types"
 
 interface Options {
   /** How to resolve Markdown paths */
@@ -53,7 +55,9 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options> | undefined> =
                 let dest = node.properties.href as RelativeURL
                 node.properties.className ??= []
                 node.properties.className.push(isAbsoluteUrl(dest) ? "external" : "internal")
-
+                if (isAbsoluteUrl(dest)) {
+                  node.properties.target = "_blank"
+                }
                 // Check if the link has alias text
                 if (
                   node.children.length === 1 &&
