@@ -16,7 +16,10 @@
     "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
     "test": "tsx ./quartz/util/path.test.ts",
-    "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1"
+    "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
+    "pretty": "cd public && prettier  $(find . -type f -name '*.html') -w",
+    "deploy": "npx quartz build && npm run pretty && vc --prod",
+    "dev": "npx quartz build --serve"
   },
   "engines": {
     "npm": ">=9.3.1",
@@ -106,6 +109,7 @@
     "esbuild": "^0.19.9",
     "prettier": "^3.1.1",
     "tsx": "^4.6.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vercel": "33.0.1"
   }
 }
