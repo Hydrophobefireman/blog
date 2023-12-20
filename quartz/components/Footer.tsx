@@ -23,6 +23,7 @@ export default ((opts?: Options) => {
             </li>
           ))}
         </ul>
+        <div>Contact: hi at hpfm dot dev</div>
       </footer>
     )
   }

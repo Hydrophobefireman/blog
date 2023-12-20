@@ -1,22 +1,25 @@
-import sourceMapSupport from "source-map-support"
-sourceMapSupport.install(options)
 import path from "path"
-import { PerfTimer } from "./util/perf"
-import { rimraf } from "rimraf"
-import { isGitIgnored } from "globby"
+
+import { Mutex } from "async-mutex"
 import chalk from "chalk"
-import { parseMarkdown } from "./processors/parse"
-import { filterContent } from "./processors/filter"
-import { emitContent } from "./processors/emit"
-import cfg from "../quartz.config"
-import { FilePath, joinSegments, slugifyFilePath } from "./util/path"
 import chokidar from "chokidar"
+import { isGitIgnored } from "globby"
+import { rimraf } from "rimraf"
+import sourceMapSupport from "source-map-support"
+
+import cfg from "../quartz.config"
 import { ProcessedContent } from "./plugins/vfile"
+import { emitContent } from "./processors/emit"
+import { filterContent } from "./processors/filter"
+import { parseMarkdown } from "./processors/parse"
 import { Argv, BuildCtx } from "./util/ctx"
 import { glob, toPosixPath } from "./util/glob"
-import { trace } from "./util/trace"
+import { FilePath, joinSegments, slugifyFilePath } from "./util/path"
+import { PerfTimer } from "./util/perf"
 import { options } from "./util/sourcemap"
-import { Mutex } from "async-mutex"
+import { trace } from "./util/trace"
+
+sourceMapSupport.install(options)
 
 async function buildQuartz(argv: Argv, mut: Mutex, clientRefresh: () => void) {
   const ctx: BuildCtx = {

@@ -53,6 +53,7 @@ function sluggify(s: string): string {
     .map((segment) => segment.replace(/\s/g, "-").replace(/%/g, "-percent").replace(/\?/g, "-q")) // slugify all segments
     .join("/") // always use / as sep
     .replace(/\/$/, "")
+    .toLowerCase()
 }
 
 export function slugifyFilePath(fp: FilePath, excludeExt?: boolean): FullSlug {
