@@ -1,19 +1,19 @@
-import { FilePath, FullSlug } from "../../util/path"
-import { QuartzEmitterPlugin } from "../types"
+import { Features, transform } from "lightningcss"
 
-// @ts-ignore
-import spaRouterScript from "../../components/scripts/spa.inline"
 // @ts-ignore
 import plausibleScript from "../../components/scripts/plausible.inline"
 // @ts-ignore
 import popoverScript from "../../components/scripts/popover.inline"
-import styles from "../../styles/custom.scss"
+// @ts-ignore
+import spaRouterScript from "../../components/scripts/spa.inline"
 import popoverStyle from "../../components/styles/popover.scss"
-import { BuildCtx } from "../../util/ctx"
-import { StaticResources } from "../../util/resources"
 import { QuartzComponent } from "../../components/types"
+import styles from "../../styles/custom.scss"
+import { BuildCtx } from "../../util/ctx"
+import { FilePath, FullSlug } from "../../util/path"
+import { StaticResources } from "../../util/resources"
 import { googleFontHref, joinStyles } from "../../util/theme"
-import { Features, transform } from "lightningcss"
+import { QuartzEmitterPlugin } from "../types"
 
 type ComponentResources = {
   css: string[]
@@ -102,7 +102,6 @@ function addGlobalPageResources(
       umamiScript.src = "https://analytics.umami.is/script.js"
       umamiScript.setAttribute("data-website-id", "${cfg.analytics.websiteId}")
       umamiScript.async = true
-  
       document.head.appendChild(umamiScript)
     `)
   }

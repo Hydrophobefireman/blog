@@ -13,7 +13,7 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
 
     const iconPath = joinSegments(baseDir, "static/icon.png")
-    const ogImagePath = `https://${cfg.baseUrl}/static/og-image.png`
+    // const ogImagePath = `https://${cfg.baseUrl}/static/og-image.png`
 
     return (
       <head>
@@ -30,6 +30,12 @@ export default (() => {
         <meta name="generator" content="Quartz" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <script
+          async
+          data-domains="blog.hpfm.dev"
+          src="https://c.hpfm.dev/script.js"
+          data-website-id="0e9b6673-83c5-4e66-a6a3-d75228370a4a"
+        ></script>
         {css.map((href) => (
           <link key={href} href={href} rel="stylesheet" type="text/css" spa-preserve />
         ))}

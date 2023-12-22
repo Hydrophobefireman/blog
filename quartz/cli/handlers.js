@@ -1,36 +1,39 @@
-import { promises } from "fs"
-import path from "path"
-import esbuild from "esbuild"
-import chalk from "chalk"
-import { sassPlugin } from "esbuild-sass-plugin"
-import fs from "fs"
-import { intro, outro, select, text } from "@clack/prompts"
-import { rimraf } from "rimraf"
-import chokidar from "chokidar"
-import prettyBytes from "pretty-bytes"
 import { execSync, spawnSync } from "child_process"
+import { randomUUID } from "crypto"
+import { promises } from "fs"
+import fs from "fs"
 import http from "http"
+import path from "path"
+
+import { Mutex } from "async-mutex"
+import chalk from "chalk"
+import chokidar from "chokidar"
+import esbuild from "esbuild"
+import { sassPlugin } from "esbuild-sass-plugin"
+import prettyBytes from "pretty-bytes"
+import { rimraf } from "rimraf"
 import serveHandler from "serve-handler"
 import { WebSocketServer } from "ws"
-import { randomUUID } from "crypto"
-import { Mutex } from "async-mutex"
+
+import { intro, outro, select, text } from "@clack/prompts"
+
 import { CreateArgv } from "./args.js"
 import {
-  exitIfCancel,
+  ORIGIN_NAME,
+  QUARTZ_SOURCE_BRANCH,
+  UPSTREAM_NAME,
+  cacheFile,
+  cwd,
+  fp,
+  version,
+} from "./constants.js"
+import {
   escapePath,
+  exitIfCancel,
   gitPull,
   popContentFolder,
   stashContentFolder,
 } from "./helpers.js"
-import {
-  UPSTREAM_NAME,
-  QUARTZ_SOURCE_BRANCH,
-  ORIGIN_NAME,
-  version,
-  fp,
-  cacheFile,
-  cwd,
-} from "./constants.js"
 
 /**
  * Handles `npx quartz create`
