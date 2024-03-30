@@ -1,8 +1,9 @@
-import { QuartzTransformerPlugin } from "../types"
-import { Root } from "mdast"
-import { visit } from "unist-util-visit"
-import { toString } from "mdast-util-to-string"
 import Slugger from "github-slugger"
+import { Root } from "mdast"
+import { toString } from "mdast-util-to-string"
+import { visit } from "unist-util-visit"
+
+import { QuartzTransformerPlugin } from "../types"
 
 export interface Options {
   maxDepth: 1 | 2 | 3 | 4 | 5 | 6
