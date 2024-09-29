@@ -24,7 +24,7 @@ export default ((opts?: Options) => {
             </li>
           ))}
         </ul>
-        <div>Contact: me at hpfm dot dev</div>
+        <div>Contact: bhavesh at bhavesh dot dev</div>
       </footer>
     )
   }
