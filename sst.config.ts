@@ -12,23 +12,16 @@ export default $config({
     }
   },
   async run() {
-    const { WorkersCustomDomain } = await import("@pulumi/cloudflare")
     const worker = new sst.cloudflare.Worker("Blog", {
       handler: "./worker.ts",
       assets: {
         directory: "./public",
       },
       url: true,
+      domain: "bhavesh.dev",
     })
 
     if ($app.stage == "production") {
-      const bhavesh_dev = new WorkersCustomDomain("CustomDomain_bhavesh_dev", {
-        accountId: sst.cloudflare.DEFAULT_ACCOUNT_ID,
-        hostname: "bhavesh.dev",
-        service: worker.nodes.worker.scriptName,
-        zoneId: BHAVESH_DEV_ZONE_ID,
-      })
-
       new cloudflare.DnsRecord("DnsRecord_hpfm_dev", {
         zoneId: HPFM_ZONE_ID,
         name: "@",
@@ -114,11 +107,6 @@ export default $config({
           },
         ],
       })
-
-      return {
-        api: worker.url,
-        bhavesh_dev: $interpolate`https://${bhavesh_dev.hostname}`,
-      }
     }
     return {
       api: worker.url,
