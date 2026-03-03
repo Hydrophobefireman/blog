@@ -37,9 +37,10 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   if (!res.headers.get("content-type")?.startsWith("text/html")) {
     return res
   }
+
   // reading the body can only be done once, so we need to clone the response
   // to allow the caller to read it if it's was not a redirect
   const text = await res.clone().text()
   const [_, redirect] = text.match(canonicalRegex) ?? []
-  return redirect ? fetch(redirect) : res
+  return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
