@@ -109,7 +109,7 @@ export default $config({
       })
     }
     return {
-      api: worker.url,
+      site: worker.url,
     }
   },
 })
