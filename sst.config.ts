@@ -14,11 +14,18 @@ export default $config({
   async run() {
     const worker = new sst.cloudflare.Worker("Blog", {
       handler: "./worker.ts",
-      assets: {
-        directory: "./public",
-      },
       url: true,
       domain: "bhavesh.dev",
+      transform: {
+        worker: {
+          assets: {
+            directory: "./public",
+            config: {
+              notFoundHandling: "404-page",
+            },
+          },
+        },
+      },
     })
 
     if ($app.stage == "production") {
