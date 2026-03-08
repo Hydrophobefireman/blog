@@ -19,7 +19,7 @@ export default $config({
       transform: {
         worker: {
           assets: {
-            directory: "./public",
+            directory: "../../public",
             config: {
               notFoundHandling: "404-page",
             },
