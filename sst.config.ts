@@ -12,20 +12,13 @@ export default $config({
     }
   },
   async run() {
-    const worker = new sst.cloudflare.Worker("Blog", {
-      handler: "./worker.ts",
-      url: true,
-      domain: "bhavesh.dev",
-      transform: {
-        worker: {
-          assets: {
-            directory: "../../public",
-            config: {
-              notFoundHandling: "404-page",
-            },
-          },
-        },
+    const worker = new sst.cloudflare.StaticSiteV2("Blog", {
+      build: {
+        command: "npm run build",
+        output: "public",
       },
+      notFound: "404",
+      domain: "bhavesh.dev",
     })
 
     if ($app.stage == "production") {

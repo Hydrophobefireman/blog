@@ -7,13 +7,10 @@
 import "sst"
 declare module "sst" {
   export interface Resource {
-  }
-}
-// cloudflare 
-import * as cloudflare from "@cloudflare/workers-types";
-declare module "sst" {
-  export interface Resource {
-    "Blog": cloudflare.Service
+    "Blog": {
+      "type": "sst.cloudflare.StaticSite"
+      "url": string
+    }
   }
 }
 
